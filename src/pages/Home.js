@@ -74,8 +74,8 @@ function Home() {
 
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
-      <Container sx={{ py: 4 }}>
-        <Box sx={{ mb: 4, display: "flex", justifyContent: "center" }}>
+      <Container sx={{ py: 10 }}>
+        <Box sx={{ mb: 6, display: "flex", justifyContent: "center" }}>
           <SearchBar onSearch={handleSearch} />
         </Box>
         {recentSearches.length > 0 && (
@@ -117,7 +117,7 @@ function Home() {
         )}
         <Grid container spacing={2} justifyContent="center">
           {movies.map((movie) => (
-            <Grid item key={movie.id}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
               <MovieCard movie={movie} />
             </Grid>
           ))}

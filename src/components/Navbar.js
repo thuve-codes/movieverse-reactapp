@@ -22,7 +22,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   background:
     theme.palette.mode === "dark"
       ? "linear-gradient(90deg,rgb(0, 0, 0) 0%,rgb(6, 14, 58) 100%)"
-      : "linear-gradient(90deg,rgb(207, 209, 219) 0%,rgb(104, 121, 211) 100%)",
+      : "linear-gradient(90deg,rgb(0, 238, 255) 0%,rgb(104, 121, 211) 100%)",
   boxShadow: theme.shadows[4],
   transition: "background 0.3s ease",
 }));
@@ -48,7 +48,10 @@ function Navbar({ darkMode, setDarkMode }) {
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Link to="/" style={{ textDecoration: "none" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <MovieIcon sx={{ fontSize: 32, color: "white" }} />
+            <img
+              src="/logo.png"
+              alt="Logo"
+              style={{ width: 40, height: 40, borderRadius: "50%" }}/>
             <Typography
               variant="h6"
               sx={{
@@ -57,7 +60,7 @@ function Navbar({ darkMode, setDarkMode }) {
                 display: { xs: "none", sm: "block" },
               }}
             >
-              MovieVerse
+              MovieVerse - CodeByThuve (thuve-codes)
             </Typography>
           </Box>
         </Link>
