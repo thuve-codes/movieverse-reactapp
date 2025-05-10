@@ -1,5 +1,4 @@
-// src/components/SearchBar.js
-import { useState } from "react"; // Add this import
+import { useState } from "react";
 import { TextField, Box } from "@mui/material";
 
 function SearchBar({ onSearch }) {
@@ -8,7 +7,7 @@ function SearchBar({ onSearch }) {
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       onSearch(query);
-      setQuery(""); // Clear input after search
+      setQuery("");
     }
   };
 
@@ -18,7 +17,7 @@ function SearchBar({ onSearch }) {
         fullWidth
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyPress={handleSearch}
+        onKeyDown={handleSearch} 
         placeholder="Search movies..."
         variant="outlined"
         size="small"
