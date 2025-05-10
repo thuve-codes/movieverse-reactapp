@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -8,11 +8,15 @@ import {
   Tooltip,
   Zoom,
   styled,
+  Button,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext } from "react";
 import MovieIcon from "@mui/icons-material/Movie";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import FavoriteIcon from "@mui/icons-material/Favorite"; // Added this import
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../App";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   background:
@@ -27,7 +31,7 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
   "& .MuiSwitch-switchBase": {
     color: theme.palette.grey[300],
     "&.Mui-checked": {
-      color: theme.palette.primary.main, // Fixed: Use valid MUI color
+      color: theme.palette.primary.main,
     },
   },
   "& .MuiSwitch-track": {
@@ -36,23 +40,28 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function Navbar({ darkMode, setDarkMode }) {
+  const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   return (
     <StyledAppBar position="static">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <MovieIcon sx={{ fontSize: 32, color: "white" }} />
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              color: "white",
-              display: { xs: "none", sm: "block" },
-            }}
-          >
-            MovieVerse
-          </Typography>
-        </Box>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <MovieIcon sx={{ fontSize: 32, color: "white" }} />
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                color: "white",
+                display: { xs: "none", sm: "block" },
+              }}
+            >
+              MovieVerse
+            </Typography>
+          </Box>
+        </Link>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Tooltip
             title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             TransitionComponent={Zoom}
@@ -70,6 +79,17 @@ function Navbar({ darkMode, setDarkMode }) {
           >
             {darkMode ? "Dark" : "Light"} Mode
           </Typography>
+         
+            <Button 
+              component={Link} 
+              to="/favorites"
+              variant="outlined"
+              startIcon={<FavoriteIcon />}
+              sx={{ color: "white" }}
+            >
+              Favorites
+            </Button>
+          
         </Box>
       </Toolbar>
     </StyledAppBar>

@@ -1,5 +1,4 @@
-// src/components/MovieCard.js
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Card,
   CardMedia,
@@ -15,6 +14,8 @@ import {
 import { styled } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import InfoIcon from "@mui/icons-material/Info";
+import { useNavigate } from "react-router-dom";
+import { MovieContext } from "../context/MovieContext";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 220,
@@ -31,24 +32,53 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 function MovieCard({ movie }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const navigate = useNavigate();
+  const { addFavorite, removeFavorite, isFavorite } = useContext(MovieContext);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const genres = movie.genres?.slice(0, 2) || [
-    { id: 1, name: "Action" },
-    { id: 2, name: "Drama" },
-  ];
+  const genres = movie.genre_ids
+    ? movie.genre_ids.map((id) => ({
+        id,
+        name: getGenreName(id),
+      }))
+    : movie.genres?.slice(0, 2) || [
+        { id: 1, name: "Action" },
+        { id: 2, name: "Drama" },
+      ];
 
   const handleFavoriteToggle = (e) => {
     e.stopPropagation();
-    setIsFavorite((prev) => !prev);
+    if (isFavorite(movie.id)) {
+      removeFavorite(movie.id);
+    } else {
+      addFavorite(movie);
+    }
   };
 
   const handleCardClick = () => {
-    console.log(`Navigate to movie details for: ${movie.id}`);
+    navigate(`/movie/${movie.id}`);
   };
 
+  function getGenreName(id) {
+    const genresMap = {
+      28: "Action",
+      12: "Adventure",
+      16: "Animation",
+      35: "Comedy",
+      18: "Drama",
+      27: "Horror",
+      10749: "Romance",
+      878: "Science Fiction",
+    };
+    return genresMap[id] || "Unknown";
+  }
+
   return (
-    <StyledCard onClick={handleCardClick}>
+    <StyledCard
+      onClick={handleCardClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <CardMedia
         component="img"
         height="300"
@@ -83,7 +113,7 @@ function MovieCard({ movie }) {
           {movie.release_date?.split("-")[0] || "N/A"}
         </Typography>
         <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
-          {genres.map((genre) => (
+          {genres.slice(0, 2).map((genre) => (
             <Chip
               key={genre.id}
               label={genre.name}
@@ -99,7 +129,7 @@ function MovieCard({ movie }) {
         <IconButton
           size="small"
           onClick={handleFavoriteToggle}
-          color={isFavorite ? "error" : "default"}
+          color={isFavorite(movie.id) ? "error" : "default"}
         >
           <FavoriteIcon />
         </IconButton>
@@ -107,7 +137,7 @@ function MovieCard({ movie }) {
           size="small"
           onClick={(e) => {
             e.stopPropagation();
-            console.log(`Show details for: ${movie.id}`);
+            navigate(`/movie/${movie.id}`);
           }}
         >
           <InfoIcon />
