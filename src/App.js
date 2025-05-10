@@ -1,13 +1,23 @@
 // src/App.js
-import { useState } from "react";
+import React, { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import { MovieProvider } from "./context/MovieContext";
+import MovieDetails from "./components/MovieDetails";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+
+import SearchBar from './components/SearchBar'; // ✅ Correct way for default export
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (query) => {
+    console.log("Searching for:", query);
+  };
 
   const theme = createTheme({
     palette: {
@@ -21,14 +31,18 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <MovieProvider>
-          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-          <Home />
-      
-      </MovieProvider>
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+  <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+  <SearchBar onSearch={handleSearch} /> {/* ✅ Correct location */}
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/movie/:id" element={<MovieDetails />} />
+  </Routes>
+</Router>
+
+      </ThemeProvider>
   );
 }
 
