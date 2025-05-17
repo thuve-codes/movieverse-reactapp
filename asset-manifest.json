@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/movieverse-reactapp/static/css/main.40df3699.css",
+    "main.js": "/movieverse-reactapp/static/js/main.8491c5dd.js",
+    "index.html": "/movieverse-reactapp/index.html",
+    "main.40df3699.css.map": "/movieverse-reactapp/static/css/main.40df3699.css.map",
+    "main.8491c5dd.js.map": "/movieverse-reactapp/static/js/main.8491c5dd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.40df3699.css",
+    "static/js/main.8491c5dd.js"
+  ]
+}
