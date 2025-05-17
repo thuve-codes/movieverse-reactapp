@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/movieverse-reactapp/static/css/main.40df3699.css",
-    "main.js": "/movieverse-reactapp/static/js/main.8491c5dd.js",
-    "index.html": "/movieverse-reactapp/index.html",
-    "main.40df3699.css.map": "/movieverse-reactapp/static/css/main.40df3699.css.map",
-    "main.8491c5dd.js.map": "/movieverse-reactapp/static/js/main.8491c5dd.js.map"
+    "main.css": "/static/css/main.40df3699.css",
+    "main.js": "/static/js/main.2ac64bf0.js",
+    "index.html": "/index.html",
+    "main.40df3699.css.map": "/static/css/main.40df3699.css.map",
+    "main.2ac64bf0.js.map": "/static/js/main.2ac64bf0.js.map"
   },
   "entrypoints": [
     "static/css/main.40df3699.css",
-    "static/js/main.8491c5dd.js"
+    "static/js/main.2ac64bf0.js"
   ]
 }
